@@ -3,6 +3,8 @@ const app = express()
 const bodyParser = require('body-parser');
 var mongoose = require('./config/mongoose')
 var db = mongoose();
+const cors = require('cors')
+
 
 // const morgan = require('morgan');
 app.use(bodyParser.urlencoded({
@@ -11,7 +13,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 app.use(bodyParser.text());
-// app.use(cors({origin: '*'}));
+app.use(cors({origin: '*'}));
 
 
 // respond with "hello world" when a GET request is made to the homepage
