@@ -14,6 +14,7 @@ const keycloak = require('keycloak-backend')({
     "username": config.usernameAdmin,
     "password": config.passwordAdmin
   });
+	  console.log(body.accessToken)
   // keycloak.accessToken.get().then((accessToken)=>{
     var data= await  keycloak.jwt.verify(body.accessToken)
      console.log( data.content.sub)
@@ -31,17 +32,18 @@ const keycloak = require('keycloak-backend')({
     async function getToken (body)
     {
       return new Promise(async function (resolve, reject) {
-    
+   console.log(body)    
     const keycloak = require('keycloak-backend')({
         "realm": "master",
         "auth-server-url": config.server,
         "client_id": body.client_id,
+	"client_secret":body.client_secret,
         "username": body.username,
         "password": body.password
       });
       // keycloak.accessToken.get().then((accessToken)=>{
         var token= await  keycloak.accessToken.get()
-
+console.log(token)
             resolve(token)
         
         })
