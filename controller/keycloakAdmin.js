@@ -3,6 +3,7 @@ import KcAdminClient from 'keycloak-admin';
 import config from '../config/config'
 import mongoose from '../util/mongoose.js';
 import profileModels from '../models/profile';
+import {Issuer} from 'openid-client';
 
 let server = config.server + "/auth"
 let server2 = config.server + "/auth/realms/master"
