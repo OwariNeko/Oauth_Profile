@@ -56,7 +56,7 @@ async function register(body) {
   })
 
 }
-async function getToken() {
+async function getToken(body) {
   return new Promise(async function (resolve, reject) {
 
     const keycloakIssuer = await Issuer.discover(
