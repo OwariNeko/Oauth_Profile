@@ -36,6 +36,7 @@ const keycloak = require('keycloak-backend')({
         "realm": "master",
         "auth-server-url": config.server,
         "client_id": body.client_id,
+        "client_secret":body.client_secret,
         "username": body.username,
         "password": body.password
       });
