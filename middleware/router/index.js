@@ -40,6 +40,7 @@ router.post('/getToken', (req, res, next) => {
   let functionName = '[API: POST /api/v1/getToken]';
   keycloak.getToken(req.body).then((Atoken) => {
     res.status(201);
+    console.log(Atoken)
   //   appendHeader(res)
   res.json(Atoken)
   })
