@@ -27,9 +27,28 @@ const keycloak = require('keycloak-backend')({
         resolve(profile)
     
     })
-
-  // })
 }
+    async function getToken (body)
+    {
+      return new Promise(async function (resolve, reject) {
+    
+    const keycloak = require('keycloak-backend')({
+        "realm": "master",
+        "auth-server-url": config.server,
+        "client_id": body.client_id,
+        "username": body.username,
+        "password": body.password
+      });
+      // keycloak.accessToken.get().then((accessToken)=>{
+        var token= await  keycloak.accessToken.get()
+
+            resolve(token)
+        
+        })
+    
+  // })
+      }
 module.exports = {
-  getProfile:getProfile
+  getProfile:getProfile,
+  getToken:getToken
 }
