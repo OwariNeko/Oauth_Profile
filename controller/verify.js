@@ -51,7 +51,7 @@ const keycloak = require('keycloak-backend')({
          jsonProfile.username= user.username
          jsonProfile.email= user.email
          console.log(jsonProfile)
-        arrayProfile=[]
+        var arrayProfile=[]
         arrayProfile.push(jsonProfile)
         console.log(arrayProfile)
 
