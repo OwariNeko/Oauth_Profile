@@ -66,6 +66,8 @@ async function findUser(id) {
       clientId: 'admin-cli',
     })
     let id = {id:id}
+    console.log(id)
+
    let users = await kcAdminClient.users.findOne(id)
     console.log(users.username)
     console.log(users.email)
