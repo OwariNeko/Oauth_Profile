@@ -64,10 +64,11 @@ async function getToken(body) {
     );
 
     const client = new keycloakIssuer.Client({
-      client_id: 'userapp', // Same as `clientId` passed to client.auth()
+      client_id: body.client_id, // Same as `clientId` passed to client.auth()
     });
 
     // Use the grant type 'password'
+    console.log(body)
 
     let tokenSet = await client.grant({
       grant_type: body.grant_type,
@@ -100,16 +101,20 @@ async function getNewToken(body) {
     );
 
     const client = new keycloakIssuer.Client({
-      client_id: 'userapp', // Same as `clientId` passed to client.auth()
+      client_id:  body.client_id, // Same as `clientId` passed to client.auth()
+      client_secret: body.client_secret
     });
-
+    // console.log(body.client_secret)
     // Use the grant type 'password'
 
-    let tokenSet = await client.grant({
-      grant_type: body.grant_type,
-    });
-    const refreshToken = tokenSet.refresh_token;
-    tokenSet = await client.refresh(refreshToken);
+    // let tokenSet = await client.grant({
+    //   grant_type: body.grant_type,
+    //   refresh_token: body.refreshToken,
+    //   client_id: body.client_id,
+    //   client_secret: body.client_secret,
+    // });
+    // const refreshToken = tokenSet.refresh_token;
+    let tokenSet = await client.refresh(body.refreshToken);
     // console.log(refreshToken)
     // Periodically using refresh_token grant flow to get new access token here
     resolve(
