@@ -26,14 +26,15 @@ const keycloak = require('keycloak-backend')({
       })
       return 0;
     }
-     console.log( data.content.sub)
-        var profile =  await new mongoose().get({ identity: data.content.sub }, 'profile');
+    let id =data.content.sub
+     console.log( id)
+        var profile =  await new mongoose().get({ identity:id }, 'profile');
         if(profile.error){
           console.error(profile.error)
             reject(profile)
         }
         console.debug(`get profile form mongoDB: ${JSON.stringify(profile)}`)
-         var user = await Keycloak.findUser(data.content.sub)
+         var user = await Keycloak.findUser(id)
         console.log(user)
          profile.username= user.username
          profile.email= user.email

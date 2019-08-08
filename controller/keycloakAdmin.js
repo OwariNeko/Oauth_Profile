@@ -56,7 +56,7 @@ async function register(body) {
   })
 
 }
-async function findUser(id) {
+async function findUser(userid) {
   return new Promise(async function (resolve, reject) {
     const kcAdminClient = new KcAdminClient(options);
     await kcAdminClient.auth({
@@ -65,7 +65,7 @@ async function findUser(id) {
       grantType: 'password',
       clientId: 'admin-cli',
     })
-    let id = {id:id}
+    let id = {id:userid}
     console.log(id)
 
    let users = await kcAdminClient.users.findOne(id)
