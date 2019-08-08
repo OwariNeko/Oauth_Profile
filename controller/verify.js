@@ -34,6 +34,7 @@ const keycloak = require('keycloak-backend')({
             reject(profile)
         }
         console.debug(`get profile form mongoDB: ${JSON.stringify(profile)}`)
+        console.log(profile.identity)
          var user = await Keycloak.findUser(id)
          profile[0].username= user.username
          profile[0].email= user.email
