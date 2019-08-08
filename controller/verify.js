@@ -34,15 +34,28 @@ const keycloak = require('keycloak-backend')({
             reject(profile)
         }
         console.debug(`get profile form mongoDB: ${JSON.stringify(profile)}`)
-        console.log(JSON.parse(profile))
-        profile=JSON.parse(profile)
+        console.log(profile)
         console.log(profile)
          var user = await Keycloak.findUser(id)
-         profile.username= user.username
-         profile.email= user.email
-         console.log(profile)
+         var jsonProfile={}
+         for(let data of profile )
+         {
+          jsonProfile.identity = data.identity
+          jsonProfile.address =data.address
+          jsonProfile.zipcode = data.zipcode
+          jsonProfile.txid = data.txid
+          jsonProfile.companyName =data.companyName
+          jsonProfile.birthDay =data.birthDay
+      
+         }
+         jsonProfile.username= user.username
+         jsonProfile.email= user.email
+         console.log(jsonProfile)
+        arrayProfile=[]
+        arrayProfile.push(jsonProfile)
+        console.log(arrayProfile)
 
-        resolve(profile)
+        resolve(arrayProfile)
     
     })
 }
