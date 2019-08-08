@@ -1,7 +1,7 @@
 const mongoose = require('../util/mongoose.js');
 const profileModels =require('../models/profile');
 const config =require('../config/config')
-
+const Keycloak = require("./keycloakAdmin")
 
 async function getProfile (body)
 {
@@ -33,6 +33,9 @@ const keycloak = require('keycloak-backend')({
             reject(profile)
         }
         console.debug(`get profile form mongoDB: ${JSON.stringify(profile)}`)
+         var user = await Keycloak.findUser(data.content.sub)
+         profile.username= user.username
+         profile.email= user.email
 
         resolve(profile)
     

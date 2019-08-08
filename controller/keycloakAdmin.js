@@ -56,6 +56,25 @@ async function register(body) {
   })
 
 }
+async function findUser(id) {
+  return new Promise(async function (resolve, reject) {
+    const kcAdminClient = new KcAdminClient(options);
+    await kcAdminClient.auth({
+      username: config.usernameAdmin,
+      password: config.passwordAdmin,
+      grantType: 'password',
+      clientId: 'admin-cli',
+    })
+    let id = {id:id}
+    users = await kcAdminClient.users.findOne(id)
+    console.log(users.username)
+    console.log(users.email)
+    // let users= await kcAdminClient.users.find()
+    // console.log(users)
+    resolve(users)
+  })
+
+}
 async function getToken(body) {
   return new Promise(async function (resolve, reject) {
 
@@ -130,7 +149,8 @@ async function getNewToken(body) {
 module.exports = {
   register: register,
   getToken: getToken,
-  getNewToken:getNewToken
+  getNewToken:getNewToken,
+  findUser:findUser
 }
 
 
