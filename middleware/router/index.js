@@ -28,8 +28,8 @@ router.post('/getProfile', (req, res, next) => {
   res.json(profile)
   })
     .catch((error) => {
-      console.error(`${functionName} Failed : ${error}`);
-      // res.status(error.error.status);
+      console.error(`${functionName} Failed : ${error.message}`);
+      res.status(401);
       res.json({
         code: error.status,
         message: error.message
