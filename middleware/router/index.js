@@ -31,8 +31,8 @@ router.post('/getProfile', (req, res, next) => {
       console.error(`${functionName} Failed : ${error}`);
       // res.status(error.error.status);
       res.json({
-        code: "500",
-        message: `Failed `
+        code: error.status,
+        message: error.message
       });
     });
 });

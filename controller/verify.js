@@ -16,7 +16,15 @@ const keycloak = require('keycloak-backend')({
   });
 	  console.log(body.accessToken)
   // keycloak.accessToken.get().then((accessToken)=>{
-    var data= await  keycloak.jwt.verify(body.accessToken)
+    try {
+      var data= await  keycloak.jwt.verify(body.accessToken)
+
+    } catch (error) {
+      reject({
+        status:401,
+        message:error
+      })
+    }
      console.log( data.content.sub)
         var profile =  await new mongoose().get({ identity: data.content.sub }, 'profile');
         if(profile.error){
