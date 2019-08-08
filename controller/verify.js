@@ -22,7 +22,7 @@ const keycloak = require('keycloak-backend')({
     } catch (error) {
       reject({
         status:401,
-        message:error
+        message:"Token false"
       })
     }
      console.log( data.content.sub)
