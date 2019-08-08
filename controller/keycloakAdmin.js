@@ -64,7 +64,7 @@ async function getToken(body) {
     );
 
     const client = new keycloakIssuer.Client({
-      client_id: 'admin-cli', // Same as `clientId` passed to client.auth()
+      client_id: 'userapp', // Same as `clientId` passed to client.auth()
     });
 
     // Use the grant type 'password'
@@ -92,10 +92,40 @@ async function getToken(body) {
 
   })
 }
+async function getNewToken(body) {
+  return new Promise(async function (resolve, reject) {
+
+    const keycloakIssuer = await Issuer.discover(
+      server2,
+    );
+
+    const client = new keycloakIssuer.Client({
+      client_id: 'userapp', // Same as `clientId` passed to client.auth()
+    });
+
+    // Use the grant type 'password'
+
+    let tokenSet = await client.grant({
+      grant_type: body.grant_type,
+    });
+    const refreshToken = tokenSet.refresh_token;
+    tokenSet = await client.refresh(refreshToken);
+    // console.log(refreshToken)
+    // Periodically using refresh_token grant flow to get new access token here
+    resolve(
+      {
+        accessToken: tokenSet.access_token
+
+      }
+    )
+
+  })
+}
 
 module.exports = {
   register: register,
-  getToken: getToken
+  getToken: getToken,
+  getNewToken:getNewToken
 }
 
 

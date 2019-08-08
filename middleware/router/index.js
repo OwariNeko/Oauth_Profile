@@ -53,4 +53,21 @@ router.post('/getToken', (req, res, next) => {
       });
     });
 });
+router.post('/getNewToken', (req, res, next) => {
+  let functionName = '[API: POST /api/v1/getNewToken]';
+  keycloak.getNewToken(req.body).then((Atoken) => {
+    res.status(201);
+    console.log(Atoken)
+  //   appendHeader(res)
+  res.json(Atoken)
+  })
+    .catch((error) => {
+      console.error(`${functionName} Failed : ${error}`);
+      // res.status(error.error.status);
+      res.json({
+        code: "500",
+        message: `Failed `
+      });
+    });
+});
 module.exports = router;
