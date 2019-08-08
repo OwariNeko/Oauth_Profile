@@ -24,6 +24,7 @@ const keycloak = require('keycloak-backend')({
         status:401,
         message:"Token expire"
       })
+      return 0;
     }
      console.log( data.content.sub)
         var profile =  await new mongoose().get({ identity: data.content.sub }, 'profile');

@@ -104,7 +104,7 @@ async function getNewToken(body) {
       client_id:  body.client_id, // Same as `clientId` passed to client.auth()
       client_secret: body.client_secret
     });
-    // console.log(body.client_secret)
+    console.log(body)
     // Use the grant type 'password'
 
     // let tokenSet = await client.grant({
