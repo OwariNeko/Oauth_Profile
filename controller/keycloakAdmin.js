@@ -147,12 +147,35 @@ async function getNewToken(body) {
 
   })
 }
+async function resetPassword(userid,newPassword) {
+  return new Promise(async function (resolve, reject) {
+    const kcAdminClient = new KcAdminClient(options);
+    await kcAdminClient.auth({
+      username: config.usernameAdmin,
+      password: config.passwordAdmin,
+      grantType: 'password',
+      clientId: 'admin-cli',
+    })
+    await  kcAdminClient.users.resetPassword({
+      id:userid,
+      credential :  
+        { temporary: false ,
+          type: "password" ,
+          value: newPassword
+        } 
+    })
+    // let users= await kcAdminClient.users.find()
+    // console.log(users)
+    resolve(newPassword)
+  })
 
+}
 module.exports = {
   register: register,
   getToken: getToken,
   getNewToken:getNewToken,
-  findUser:findUser
+  findUser:findUser,
+  resetPassword:resetPassword
 }
 
 

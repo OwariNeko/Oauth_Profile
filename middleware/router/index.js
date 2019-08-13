@@ -70,4 +70,21 @@ router.post('/getNewToken', (req, res, next) => {
       });
     });
 });
+router.post('/resetPassword', (req, res, next) => {
+  let functionName = '[API: POST /api/v1/resetPassword]';
+  token.resetPassword(req.body).then((Password) => {
+    res.status(201);
+    console.log(Password)
+  //   appendHeader(res)
+  res.json(Password)
+  })
+    .catch((error) => {
+      console.error(`${functionName} Failed : ${error}`);
+      // res.status(error.error.status);
+      res.json({
+        code: "500",
+        message: `Failed `
+      });
+    });
+});
 module.exports = router;

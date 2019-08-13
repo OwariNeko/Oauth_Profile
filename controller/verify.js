@@ -80,7 +80,39 @@ console.log(token)
     
   // })
       }
+async function resetPassword (body)
+      {
+      return new Promise(async function (resolve, reject) {
+      
+      const keycloak = require('keycloak-backend')({
+          "realm": "master",
+          "auth-server-url": config.server,
+          "client_id": "admin-cli",
+          "username": config.usernameAdmin,
+          "password": config.passwordAdmin
+        });
+          console.log(body.accessToken)
+        // keycloak.accessToken.get().then((accessToken)=>{
+          try {
+            var data= await  keycloak.jwt.verify(body.accessToken)
+      
+          } catch (error) {
+            reject({
+              status:401,
+              message:"Token expire"
+            })
+            return 0;
+          }
+          let id =data.content.sub
+               var password = await Keycloak.resetPassword(id,body.newPassword)
+
+      
+              resolve(password)
+          
+          })
+      }
 module.exports = {
   getProfile:getProfile,
-  getToken:getToken
+  getToken:getToken,
+  resetPassword:resetPassword
 }
