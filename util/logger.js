@@ -1,25 +1,29 @@
 var winston = require('winston');
+winston.error = true;
 
-var console = module.exports = new winston.console({
+const console = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    defaultMeta: { service: 'user-service' },
     transports: [
-        // new winston.transports.File({
-        //     level: 'warn',
-        //     filename: './logs/logs.log',
-        //     handleExceptions: true,
-        //     json: true,
-        //     maxsize: 5242880, //5MB
-        //     maxFiles: 5,
-        //     colorize: false
-        // }),
-        new winston.transports.Console({
-            level: 'debug',
-            prettyPrint: true,
-            handleExceptions: true,
-            json: false,
-            colorize: true
-        })
-    ],
-});
+      //
+      // - Write to all logs with level `info` and below to `combined.log` 
+      // - Write all logs error (and below) to `error.log`.
+      //
+      new winston.transports.File({ filename: 'error.log', level: 'error' }),
+      new winston.transports.File({ filename: 'combined.log' })
+    ]
+  });
+   
+  //
+  // If we're not in production then log to the `console` with the format:
+  // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+  // 
+  if (process.env.NODE_ENV !== 'production') {
+    console.add(new winston.transports.Console({
+      format: winston.format.simple()
+    }));
+  }
 
 console.stream = {
     write: function(message, encoding){
