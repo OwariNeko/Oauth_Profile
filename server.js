@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 var mongoose = require('./config/mongoose')
 var db = mongoose();
 const cors = require('cors')
-const logger = require('./utils/logger');
+const logger = require('./util/logger');
 const morgan = require('morgan');
 
 
