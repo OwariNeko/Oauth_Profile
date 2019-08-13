@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 var mongoose = require('./config/mongoose')
 var db = mongoose();
 const cors = require('cors')
+const logger = require('./utils/logger');
+const morgan = require('morgan');
+
+
 
 
 // const morgan = require('morgan');
@@ -14,6 +18,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(cors({origin: '*'}));
+app.use(morgan('dev', {
+  'stream': logger.stream
+}));
 
 
 // respond with "hello world" when a GET request is made to the homepage
