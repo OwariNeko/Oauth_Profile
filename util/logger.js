@@ -1,5 +1,4 @@
 var winston = require('winston');
-winston.emitErrs = true;
 
 var console = module.exports = new winston.console({
     transports: [
@@ -20,7 +19,6 @@ var console = module.exports = new winston.console({
             colorize: true
         })
     ],
-    exitOnError: false
 });
 
 console.stream = {
